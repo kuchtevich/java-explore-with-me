@@ -19,10 +19,10 @@ public class Stats {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
-    @Column(name = "app", nullable = false)
+    @Column(name = "App", nullable = false)
     private String App;
 
-    @Column(name = "uri", nullable = false)
+    @Column(name = "URI", nullable = false)
     private String URI;
 
     @Column(name = "IP", nullable = false)
