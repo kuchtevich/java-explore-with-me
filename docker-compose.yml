@@ -19,7 +19,7 @@ services:
     ports:
       - "6541:5432"
     environment:
-      - POSTGRES_DB=ewm-stats
+      - POSTGRES_DB=stats
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=1234
 
