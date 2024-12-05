@@ -17,16 +17,16 @@ import java.time.LocalDateTime;
 public class Stats {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
 
     @Column(name = "App", nullable = false)
-    private String App;
+    private String app;
 
     @Column(name = "URI", nullable = false)
-    private String URI;
+    private String uri;
 
     @Column(name = "IP", nullable = false)
-    private String IP;
+    private String ip;
 
     @Column(name = "time_stamp", nullable = false)
     private LocalDateTime timestamp;

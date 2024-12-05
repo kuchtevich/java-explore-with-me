@@ -33,9 +33,9 @@ public class StatsController  {
     public List<StatsDtoOut> getStats(
             @RequestParam @DateTimeFormat(pattern = DATE_FORMAT) LocalDateTime start,
             @RequestParam @DateTimeFormat(pattern = DATE_FORMAT) LocalDateTime end,
-            @RequestParam(required = false) List<String> URIs,
+            @RequestParam(required = false) List<String> uris,
             @RequestParam(defaultValue = "false") Boolean unique) {
-        return statsService.getStats(start, end, URIs, unique);
+        return statsService.getStats(start, end, uris, unique);
     }
 
 }

@@ -18,16 +18,16 @@ import java.time.LocalDateTime;
 public class StatsDtoIn {
     @NotBlank
     @Size(max = 255)
-    private String App;
+    private String app;
 
     @NotBlank
     @NotEmpty
     @Size(max = 255)
-    private String URI;
+    private String uri;
 
     @NotBlank
     @Size(max = 255)
-    private String IP;
+    private String ip;
 
     @NotNull
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", shape = JsonFormat.Shape.STRING)

@@ -1,6 +1,5 @@
 package ru.practicum;
 
-import org.apache.catalina.util.URLEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -10,14 +9,15 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 
-import static org.springframework.http.RequestEntity.post;
-import java.util.Map;
-import java.util.List;
-import java.util.Objects;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 @Service
 public class StatsClient extends BaseClient {
+
     @Autowired
     public StatsClient(@Value("${stats-service.url}") final String serverUrl,
                       final RestTemplateBuilder builder) {
@@ -30,7 +30,7 @@ public class StatsClient extends BaseClient {
     }
 
     public ResponseEntity<Object> createStats(final StatsDtoIn statsDtoIn) {
-        return post("/Hit", statsDtoIn);
+        return post("/hit", statsDtoIn);
     }
 
     public ResponseEntity<Object> getStats(final String start,

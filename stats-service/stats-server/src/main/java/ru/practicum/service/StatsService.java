@@ -11,6 +11,6 @@ public interface StatsService {
 
     List<StatsDtoOut> getStats(LocalDateTime start,
                                LocalDateTime end,
-                               List<String> URIs,
+                               List<String> uris,
                                Boolean unique);
 }

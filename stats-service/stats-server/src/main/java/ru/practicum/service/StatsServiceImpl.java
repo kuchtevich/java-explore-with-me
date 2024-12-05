@@ -29,20 +29,20 @@ public class StatsServiceImpl implements StatsService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<StatsDtoOut> getStats(LocalDateTime start, LocalDateTime end, List<String> URIs, Boolean unique) {
+    public List<StatsDtoOut> getStats(LocalDateTime start, LocalDateTime end, List<String> uris, Boolean unique) {
 
         if (start.isAfter(end)) {
             throw new ValidationException("Дата начала и дата окончания указаны неверно.");
         }
 
         if (unique) {
-            if (URIs != null) {
-                return statsRepository.findAllWithIPAndURI(URIs, start, end);
+            if (uris != null) {
+                return statsRepository.findAllWithIPAndURI(uris, start, end);
             }
             return statsRepository.findAllWithIPAndWithoutURI(start, end);
         } else {
-            if (URIs != null) {
-                return statsRepository.findAllWithURIs(URIs, start, end);
+            if (uris != null) {
+                return statsRepository.findAllWithURIs(uris, start, end);
             }
             return statsRepository.findAllWithoutURIs(start, end);
         }

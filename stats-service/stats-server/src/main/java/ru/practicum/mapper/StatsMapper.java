@@ -9,8 +9,8 @@ public class StatsMapper {
 
         final Stats stats = new Stats();
 
-        stats.setIP(statsDtoIn.getIP());
-        stats.setURI(statsDtoIn.getURI());
+        stats.setIp(statsDtoIn.getIp());
+        stats.setUri(statsDtoIn.getUri());
         stats.setTimestamp(statsDtoIn.getTimestamp());
         stats.setApp(statsDtoIn.getApp());
 
@@ -21,8 +21,8 @@ public class StatsMapper {
 
         final StatsDtoIn statsDtoIn = new StatsDtoIn();
 
-        statsDtoIn.setIP(stats.getIP());
-        statsDtoIn.setURI(stats.getURI());
+        statsDtoIn.setIp(stats.getIp());
+        statsDtoIn.setUri(stats.getUri());
         statsDtoIn.setTimestamp(stats.getTimestamp());
         statsDtoIn.setApp(stats.getApp());
 

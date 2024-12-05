@@ -9,31 +9,31 @@ import java.util.List;
 
 public interface StatsRepository extends JpaRepository<Stats, Long> {
     @Query("""
-            SELECT new ru.practicum.StatsDtoOut(s.IP, s.URI, COUNT(DISTINCT s.IP))
+            SELECT new ru.practicum.StatsDtoOut(s.ip, s.uri, COUNT(DISTINCT s.ip))
             FROM Stats AS s
-            WHERE s.timestamp BETWEEN :start AND :end AND s.URI IN :URIs
-            GROUP BY s.IP, s.URI
-            ORDER BY COUNT(DISTINCT s.IP) DESC
+            WHERE s.timestamp BETWEEN :start AND :end AND s.uri IN :uris
+            GROUP BY s.ip, s.uri
+            ORDER BY COUNT(DISTINCT s.ip) DESC
             """)
-    List<StatsDtoOut> findAllWithIPAndURI(List<String> URIs,
+    List<StatsDtoOut> findAllWithIPAndURI(List<String> uris,
                                           LocalDateTime start,
-                                          LocalDateTime end); //findAllWithUniqueIpWithUris
+                                          LocalDateTime end);
 
     @Query("""
-            SELECT new ru.practicum.StatsDtoOut(s.IP, s.URI, COUNT(DISTINCT s.IP))
+            SELECT new ru.practicum.StatsDtoOut(s.ip, s.uri, COUNT(DISTINCT s.rp))
             FROM Stats AS s
             WHERE s.timestamp BETWEEN :start AND :end
-            GROUP BY s.IP, s.URI
-            ORDER BY COUNT(DISTINCT s.IP) DESC
+            GROUP BY s.ip, s.uri
+            ORDER BY COUNT(DISTINCT s.ip) DESC
             """)
     List<StatsDtoOut> findAllWithIPAndWithoutURI(LocalDateTime start,
                                                      LocalDateTime end);
 
     @Query("""
-            SELECT new ru.practicum.StatDtoOutput(s.IP, s.URI, COUNT(s.ip))
+            SELECT new ru.practicum.StatDtoOut(s.ip, s.uri, COUNT(s.ip))
             FROM Stats AS s
-            WHERE s.timestamp BETWEEN :start AND :end AND s.URI IN :URIs
-            GROUP BY s.ip, s.URI
+            WHERE s.timestamp BETWEEN :start AND :end AND s.uri IN :uris
+            GROUP BY s.ip, s.uri
             ORDER BY COUNT (s.ip) DESC
             """)
     List<StatsDtoOut> findAllWithURIs(List<String> uris,
@@ -41,11 +41,11 @@ public interface StatsRepository extends JpaRepository<Stats, Long> {
                                         LocalDateTime end);
 
     @Query("""
-            SELECT new ru.practicum.StatsDtoOut(s.IP, s.URI, COUNT(s.IP))
+            SELECT new ru.practicum.StatsDtoOut(s.ip, s.uri, COUNT(s.ip))
             FROM Stats AS s
             WHERE s.timestamp BETWEEN :start AND :end
-            GROUP BY s.IP, s.URI
-            ORDER BY COUNT (s.IP) DESC
+            GROUP BY s.ip, s.uri
+            ORDER BY COUNT (s.ip) DESC
             """)
     List<StatsDtoOut> findAllWithoutURIs(LocalDateTime start,
                                            LocalDateTime end);
