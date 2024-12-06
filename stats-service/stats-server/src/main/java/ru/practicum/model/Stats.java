@@ -1,31 +1,30 @@
 package ru.practicum.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import java.time.LocalDateTime;
 
-@Data
+@Setter
+@Getter
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode()
 @Table(name = "stats")
 public class Stats {
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "App", nullable = false)
+    @Column(name = "app", nullable = false)
     private String app;
 
-    @Column(name = "URI", nullable = false)
+    @Column(name = "uri", nullable = false)
     private String uri;
 
-    @Column(name = "IP", nullable = false)
+    @Column(name = "ip", nullable = false)
     private String ip;
 
     @Column(name = "time_stamp", nullable = false)
