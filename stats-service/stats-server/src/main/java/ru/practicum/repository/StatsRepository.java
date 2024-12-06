@@ -20,7 +20,7 @@ public interface StatsRepository extends JpaRepository<Stats, Long> {
                                           LocalDateTime end);
 
     @Query("""
-            SELECT new ru.practicum.StatsDtoOut(s.ip, s.uri, COUNT(DISTINCT s.rp))
+            SELECT new ru.practicum.StatsDtoOut(s.ip, s.uri, COUNT(DISTINCT s.ip))
             FROM Stats AS s
             WHERE s.timestamp BETWEEN :start AND :end
             GROUP BY s.ip, s.uri
