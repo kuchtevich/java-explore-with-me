@@ -14,6 +14,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.time.LocalDateTime;
+import ru.practicum.exception.ValidationException;
 
 @Service
 public class StatsClient extends BaseClient {
@@ -37,6 +39,13 @@ public class StatsClient extends BaseClient {
                                            final String end,
                                            @Nullable final List<String> uris,
                                            final boolean unique) {
+
+        LocalDateTime startLocal = LocalDateTime.parse(start);
+        LocalDateTime endLocal = LocalDateTime.parse(end);
+
+        if (startLocal.isAfter(endLocal)) {
+            throw new ValidationException("Дата начала и дата окончания указаны неверно.");
+        }
         Map<String, Object> parameters;
 
         if (Objects.isNull(uris)) {

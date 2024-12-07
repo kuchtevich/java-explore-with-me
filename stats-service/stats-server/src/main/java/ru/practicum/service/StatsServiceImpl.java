@@ -11,7 +11,6 @@ import ru.practicum.model.Stats;
 import ru.practicum.repository.StatsRepository;
 import java.util.List;
 import java.time.LocalDateTime;
-import ru.practicum.exception.ValidationException;
 
 @Service
 @RequiredArgsConstructor
@@ -30,10 +29,6 @@ public class StatsServiceImpl implements StatsService {
     @Override
     @Transactional(readOnly = true)
     public List<StatsDtoOut> getStats(LocalDateTime start, LocalDateTime end, List<String> uris, Boolean unique) {
-
-        if (start.isAfter(end)) {
-            throw new ValidationException("Дата начала и дата окончания указаны неверно.");
-        }
 
         if (unique) {
             if (uris != null) {
