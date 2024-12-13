@@ -6,9 +6,14 @@ import ru.practicum.event.dto.EventAllDto;
 import ru.practicum.event.dto.EventNewDto;
 import ru.practicum.event.dto.EventSmallDto;
 import ru.practicum.event.model.Event;
-import ru.practicum.event.model.State;
+import ru.practicum.event.model.StateEvent;
 import ru.practicum.user.dto.UserDto;
 import ru.practicum.user.model.User;
+
+import java.util.List;
+import java.util.Map;
+import java.util.ArrayList;
+import java.time.LocalDateTime;
 
 public class EventMapper {
     public static Event toEvent(final EventNewDto eventRequestDto,
@@ -28,13 +33,13 @@ public class EventMapper {
         event.setRequestModeration(eventRequestDto.getRequestModeration());
         event.setTitle(eventRequestDto.getTitle());
         event.setCreatedOn(LocalDateTime.now());
-        event.setState(State.PENDING);
+        event.setState(StateEvent.PENDING);
         event.setConfirmedRequests(0);
 
         return event;
     }
 
-    public static EventSmallDto toEventShortDto(final Event event) {
+    public static EventSmallDto toEventSmallDto(final Event event) {
 
         final EventSmallDto eventSmallDto = new EventSmallDto();
 
@@ -59,14 +64,14 @@ public class EventMapper {
 
         eventAllDto.setAnnotation(event.getAnnotation());
         eventAllDto.setCategory(
-                new CategoryOutputDto(event.getCategory().getId(), event.getCategory().getName()));
+                new CategoryDtoOut(event.getCategory().getId(), event.getCategory().getName()));
         eventAllDto.setConfirmedRequests(event.getConfirmedRequests());
         eventAllDto.setCreatedOn(event.getCreatedOn());
         eventAllDto.setDescription(event.getDescription());
         eventAllDto.setEventDate(event.getEventDate());
         eventAllDto.setId(event.getId());
         eventAllDto.setInitiator(
-                new UserDtoShort(event.getInitiator().getId(), event.getInitiator().getName()));
+                new UserDto(event.getInitiator().getId(), event.getInitiator().getName()));
         eventAllDto.setLocation(event.getLocation());
         eventAllDto.setPaid(event.getPaid());
         eventAllDto.setParticipantLimit(event.getParticipantLimit());
@@ -79,20 +84,20 @@ public class EventMapper {
         return eventAllDto;
     }
 
-    public static List<EventSmallDto> toEventShortDtoList(Iterable<Event> events) {
-        List<EventShortDto> result = new ArrayList<>();
+    public static List<EventSmallDto> toEventSmallDtoList(Iterable<Event> events) {
+        List<EventSmallDto> result = new ArrayList<>();
 
         for (Event event : events) {
-            result.add(toEventShortDto(event));
+            result.add(toEventSmallDto(event));
         }
         return result;
     }
 
-    public static List<EvenAllDto> toEventFullDtoList(Iterable<Event> events) {
+    public static List<EventAllDto> toEventAllDtoList(Iterable<Event> events) {
         List<EventAllDto> result = new ArrayList<>();
 
         for (Event event : events) {
-            result.add(toEventFullDto(event));
+            result.add(toEventAllDto(event));
         }
         return result;
     }

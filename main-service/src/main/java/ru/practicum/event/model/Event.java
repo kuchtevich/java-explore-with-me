@@ -1,11 +1,19 @@
 package ru.practicum.event.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import ru.practicum.category.model.Category;
 import ru.practicum.user.model.User;
 import java.time.LocalDateTime;
-import ru.practicum.event.model.State;
+import ru.practicum.event.model.StateEvent;
 
+@Data
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "events")
 public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,7 +41,7 @@ public class Event {
     private String description;
 
     @Enumerated(EnumType.STRING)
-    private State state;
+    private StateEvent state;
 
     @Column(name = "event_date", nullable = false)
     private LocalDateTime eventDate;

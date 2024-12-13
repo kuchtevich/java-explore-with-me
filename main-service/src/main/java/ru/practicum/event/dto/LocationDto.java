@@ -21,4 +21,3 @@ public class LocationDto {
     @DecimalMax(value = "180.0", message = "Долгота должна быть в диапазоне -180 и 180.")
     private Float lon;
 }
-}

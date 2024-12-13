@@ -3,6 +3,7 @@ package ru.practicum.compilation.mapper;
 import ru.practicum.compilation.dto.CompilationDtoIn;
 import ru.practicum.compilation.dto.CompilationDtoOut;
 import ru.practicum.compilation.model.Compilation;
+import ru.practicum.event.dto.EventSmallDto;
 import ru.practicum.event.model.Event;
 
 import java.util.List;
@@ -21,14 +22,15 @@ public class CompilationMapper {
     }
 
     public static CompilationDtoOut toCompilationDto(final Compilation compilation,
-                                                     final List<EventShortDto> eventShortDtoList) {
+                                                     final List<EventSmallDto> eventSmallDtoList) {
 
-        final CompilationDtoOut compilationDtoOutput = new CompilationDtoOut();
+        final CompilationDtoOut compilationDtoOut = new CompilationDtoOut();
 
-        compilationDtoOutput.setId(compilation.getId());
-        compilationDtoOutput.setEvents(eventShortDtoList);
-        compilationDtoOutput.setPinned(compilation.getPinned());
-        compilationDtoOutput.setTitle(compilation.getTitle());
+        compilationDtoOut.setId(compilation.getId());
+        compilationDtoOut.setEvents(eventSmallDtoList);
+        compilationDtoOut.setPinned(compilation.getPinned());
+        compilationDtoOut.setTitle(compilation.getTitle());
 
+        return compilationDtoOut;
     }
 }

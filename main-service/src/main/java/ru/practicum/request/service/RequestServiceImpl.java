@@ -15,6 +15,7 @@ import ru.practicum.user.model.User;
 import ru.practicum.user.repository.UserRepository;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.extern.slf4j.Slf4j;
+import ru.practicum.event.model.StateEvent;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -59,7 +60,7 @@ public class RequestServiceImpl implements RequestService {
             throw new ConflictException("На данное мероприятие больше нет мест");
         }
 
-        if (!event.getState().equals(EventState.PUBLISHED)) {
+        if (!event.getState().equals(StateEvent.PUBLISHED)) {
             throw new ConflictException("Событие еще не было опубликовано.");
         }
 

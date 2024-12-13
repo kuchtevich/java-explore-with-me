@@ -1,8 +1,11 @@
 package ru.practicum.compilation.service;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.compilation.dto.CompilationDtoOut;
+import ru.practicum.compilation.mapper.CompilationMapper;
 import ru.practicum.compilation.repository.CompilationRepository;
 import ru.practicum.error.NotFoundException;
 import ru.practicum.event.mapper.EventMapper;
@@ -11,6 +14,8 @@ import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ru.practicum.compilation.dto.*;
+import ru.practicum.event.model.Event;
+import ru.practicum.compilation.model.Compilation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,17 +32,17 @@ private final CompilationRepository compilationRepository;
 
     @Override
     public CompilationDtoOut createCompilation(final CompilationDtoIn compilationDto) {
-        final List<Event> events = eventRepository.findByIdIn(compilationRequestDto.getEvents());
+        final List<Event> events = eventRepository.findByIdIn(compilationDto.getEvents());
         final Compilation compilation = CompilationMapper.toCompilation(compilationDto, events);
 
-        if (Objects.isNull(compilationRequestDto.getPinned())) {
+        if (Objects.isNull(compilationDto.getPinned())) {
             compilation.setPinned(false);
         }
 
         final Compilation newCompilation = compilationRepository.save(compilation);
         log.info("Подборка с id = {} создана.", compilation.getId());
         return CompilationMapper.toCompilationDto(newCompilation, events.stream()
-                .map(EventMapper::toEventShortDto)
+                .map(EventMapper::toEventSmallDto)
                 .toList());
     }
 
@@ -45,7 +50,7 @@ private final CompilationRepository compilationRepository;
     public void deleteCompilation(final Long compilationId) {
         compilationRepository.findById(compilationId)
                 .orElseThrow(() -> new NotFoundException("Подборки с id = {} не существует." + compilationId));
-        compilationRepository.deleteById(compId);
+        compilationRepository.deleteById(compilationId);
         log.info("Удаление подборки с id = {}.", compilationId);
     }
 
@@ -65,9 +70,9 @@ private final CompilationRepository compilationRepository;
         }
 
         final Compilation newCompilation = compilationRepository.save(compilation);
-        log.info("Обновление данных подборки с id = {}.", compId);
+        log.info("Обновление данных подборки с id = {}.", compilationId);
         return CompilationMapper.toCompilationDto(newCompilation, events.stream()
-                .map(EventMapper::toEventShortDto)
+                .map(EventMapper::toEventSmallDto)
                 .toList());
     }
 
@@ -90,7 +95,7 @@ private final CompilationRepository compilationRepository;
         log.info("Получение списка подборок событий.");
         return compilationList.stream()
                 .map(c -> CompilationMapper.toCompilationDto(c, c.getEvents().stream()
-                        .map(EventMapper::toEventShortDto).toList())).toList();
+                        .map(EventMapper::toEventSmallDto).toList())).toList();
     }
 
     @Override
@@ -100,7 +105,7 @@ private final CompilationRepository compilationRepository;
                 .orElseThrow(() -> new NotFoundException("Подборки с id = {} не существует." + compilationId));
         log.info("Получение данных подборки с id = {}.", compilationId);
         return CompilationMapper.toCompilationDto(compilation, compilation.getEvents().stream()
-                .map(EventMapper::toEventShortDto)
+                .map(EventMapper::toEventSmallDto)
                 .toList());
     }
 }

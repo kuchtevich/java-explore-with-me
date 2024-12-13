@@ -4,11 +4,13 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
 import ru.practicum.event.model.Action;
 import ru.practicum.event.model.Location;
 
 import java.time.LocalDateTime;
 
+@Data
 public class EventDto {
 
     @Size(min = 20, max = 2000)

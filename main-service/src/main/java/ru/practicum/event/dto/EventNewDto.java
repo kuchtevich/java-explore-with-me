@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.Nulls;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 import ru.practicum.event.model.Location;
-import ru.practicum.event.model.State;
+import ru.practicum.event.model.StateEvent;
 
 import java.time.LocalDateTime;
 
@@ -41,7 +41,7 @@ public class EventNewDto {
     @JsonSetter(nulls = Nulls.SKIP)
     private Boolean requestModeration = true;
 
-    private State state;
+    private StateEvent state;
 
     @NotBlank
     @Size(min = 3, max = 120)
