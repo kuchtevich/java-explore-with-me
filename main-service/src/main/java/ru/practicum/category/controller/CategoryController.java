@@ -17,6 +17,7 @@ import ru.practicum.category.service.CategoryService;
 public class CategoryController {
 
     private final CategoryService categoryService;
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public CategoryDtoOut createCategory(@Valid @RequestBody final CategoryDtoIn categoryDtoIn) {

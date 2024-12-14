@@ -8,7 +8,6 @@ import ru.practicum.event.dto.EventNewDto;
 import ru.practicum.event.dto.EventSmallDto;
 import ru.practicum.request.dto.RequestDto;
 import ru.practicum.request.dto.RequestStatusDto;
-import ru.practicum.request.model.RequestStatus;
 
 import java.util.List;
 import java.util.Map;
@@ -26,10 +25,10 @@ public interface EventService {
     List<RequestDto> getRequestsByEventId(final Long userId, final Long eventId);
 
     Map<String, List<RequestDto>> approveRequests(final Long userId, final Long eventId,
-                                                               final RequestStatusDto requestDto);
+                                                  final RequestStatusDto requestDto);
 
     List<EventAllDto> getAllByAdmin(final List<Long> users, final List<String> states, final List<Long> categories,
-                                     final String rangeStart, final String rangeEnd, final int from, final int size);
+                                    final String rangeStart, final String rangeEnd, final int from, final int size);
 
     EventAllDto approveEventByAdmin(final Long eventId, final EventDto eventDto);
 

@@ -18,7 +18,7 @@ public class CategoryMapper {
 
     public static CategoryDtoOut toCategoryDtoOut(final Category category) {
 
-        final CategoryDtoOut categoryDtoOut= new CategoryDtoOut();
+        final CategoryDtoOut categoryDtoOut = new CategoryDtoOut();
         categoryDtoOut.setId(category.getId());
         categoryDtoOut.setName(category.getName());
 

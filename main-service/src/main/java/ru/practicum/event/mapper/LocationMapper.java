@@ -4,7 +4,7 @@ import ru.practicum.event.dto.LocationDto;
 import ru.practicum.event.model.Location;
 
 public class LocationMapper {
-    public static Location toLocation(LocationDto dto){
+    public static Location toLocation(LocationDto dto) {
         return new Location(
                 null,
                 dto.getLat(),
@@ -12,7 +12,7 @@ public class LocationMapper {
         );
     }
 
-    public static LocationDto toLocationDto(Location location){
+    public static LocationDto toLocationDto(Location location) {
         return new LocationDto(
                 location.getLat(),
                 location.getLon()

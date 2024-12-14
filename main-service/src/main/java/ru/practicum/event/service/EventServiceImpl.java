@@ -1,6 +1,5 @@
 package ru.practicum.event.service;
 
-
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import lombok.RequiredArgsConstructor;
@@ -52,7 +51,7 @@ public class EventServiceImpl implements EventService {
     private final RequestRepository requestRepository;
     private final EntityManager entityManager;
 
-    private final static DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @Override
     @Transactional(readOnly = true)
@@ -253,7 +252,7 @@ public class EventServiceImpl implements EventService {
     @Override
     @Transactional(readOnly = true)
     public List<EventAllDto> getAllByAdmin(final List<Long> usersId, final List<String> states, final List<Long> categoriesId,
-                                            final String rangeStart, final String rangeEnd, final int from, final int size) {
+                                           final String rangeStart, final String rangeEnd, final int from, final int size) {
         LocalDateTime start = (rangeStart != null) ? LocalDateTime.parse(rangeStart, FORMATTER) : LocalDateTime.now();
         LocalDateTime end = (rangeEnd != null) ? LocalDateTime.parse(rangeEnd, FORMATTER) : LocalDateTime.now().plusYears(20);
         PageRequest pageRequest = PageRequest.of(from / size, size);
@@ -294,7 +293,7 @@ public class EventServiceImpl implements EventService {
                 return new ArrayList<>();
             }
         } else {
-            categories = categoryRepository.findByIdInOrderByIdAsc(categoriesId, pageRequest);
+            categories = categoryRepository.findByIdInOrderById(categoriesId, pageRequest);
             if (categories.size() != categoriesId.size()) {
                 throw new ValidationException("Список категорий передан неверно неверно");
             }
@@ -449,6 +448,7 @@ public class EventServiceImpl implements EventService {
         return result;
 
     }
+
     private void checkValidFields(final EventDto eventDto, final Event oldEvent) {
         Optional.ofNullable(eventDto.getTitle()).ifPresent(oldEvent::setTitle);
         Optional.ofNullable(eventDto.getAnnotation()).ifPresent(oldEvent::setAnnotation);

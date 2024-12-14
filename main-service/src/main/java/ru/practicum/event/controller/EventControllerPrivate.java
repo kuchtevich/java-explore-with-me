@@ -17,6 +17,7 @@ import ru.practicum.request.dto.RequestStatusDto;
 
 import java.util.List;
 import java.util.Map;
+
 @RequiredArgsConstructor
 @Validated
 @RestController
@@ -55,8 +56,8 @@ public class EventControllerPrivate {
 
     @PatchMapping("/{eventId}/requests")
     public Map<String, List<RequestDto>> approveRequests(@PathVariable final Long userId,
-                                                                      @PathVariable final Long eventId,
-                                                                      @RequestBody @Valid final RequestStatusDto requestDto) {
+                                                         @PathVariable final Long eventId,
+                                                         @RequestBody @Valid final RequestStatusDto requestDto) {
         return eventService.approveRequests(userId, eventId, requestDto);
     }
 }

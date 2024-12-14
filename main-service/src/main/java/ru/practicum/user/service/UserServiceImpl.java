@@ -19,7 +19,7 @@ import java.util.Objects;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     @Override

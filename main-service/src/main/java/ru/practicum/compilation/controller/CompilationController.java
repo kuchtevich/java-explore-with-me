@@ -7,14 +7,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.compilation.dto.CompilationDtoIn;
 import ru.practicum.compilation.dto.CompilationDtoOut;
-import ru.practicum.compilation.repository.CompilationRepository;
 import ru.practicum.compilation.service.CompilationService;
-import ru.practicum.event.repository.EventRepository;
 import ru.practicum.compilation.dto.CompilationDto;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 @Validated
 @RestController
