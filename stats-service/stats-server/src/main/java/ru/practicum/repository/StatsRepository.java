@@ -15,7 +15,7 @@ public interface StatsRepository extends JpaRepository<Stats, Long> {
             GROUP BY s.ip, s.uri
             ORDER BY COUNT(DISTINCT s.ip) DESC
             """)
-    List<StatsDtoOut> findAllWithIPAndURI(List<String> uris,
+    List<StatsDtoOut> findAllWithUniqueIpWithUris(List<String> uris,
                                           LocalDateTime start,
                                           LocalDateTime end);
 
@@ -26,7 +26,7 @@ public interface StatsRepository extends JpaRepository<Stats, Long> {
             GROUP BY s.ip, s.uri
             ORDER BY COUNT(DISTINCT s.ip) DESC
             """)
-    List<StatsDtoOut> findAllWithIPAndWithoutURI(LocalDateTime start,
+    List<StatsDtoOut> findAllWithUniqueIpWithoutUris(LocalDateTime start,
                                                      LocalDateTime end);
 
     @Query("""
@@ -36,7 +36,7 @@ public interface StatsRepository extends JpaRepository<Stats, Long> {
             GROUP BY s.ip, s.uri
             ORDER BY COUNT (s.ip) DESC
             """)
-    List<StatsDtoOut> findAllWithURIs(List<String> uris,
+    List<StatsDtoOut> findAllWithUris(List<String> uris,
                                         LocalDateTime start,
                                         LocalDateTime end);
 
@@ -47,6 +47,6 @@ public interface StatsRepository extends JpaRepository<Stats, Long> {
             GROUP BY s.ip, s.uri
             ORDER BY COUNT (s.ip) DESC
             """)
-    List<StatsDtoOut> findAllWithoutURIs(LocalDateTime start,
+    List<StatsDtoOut> findAllWithoutUris(LocalDateTime start,
                                            LocalDateTime end);
 }

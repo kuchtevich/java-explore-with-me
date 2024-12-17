@@ -29,6 +29,7 @@ import ru.practicum.request.dto.RequestStatusDto;
 import ru.practicum.request.mapper.RequestMapper;
 import ru.practicum.request.model.RequestStatus;
 import ru.practicum.request.repository.RequestRepository;
+import ru.practicum.stats.service.StatsService;
 import ru.practicum.user.model.User;
 import ru.practicum.user.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
@@ -50,6 +51,7 @@ public class EventServiceImpl implements EventService {
     private final LocationRepository locationRepository;
     private final RequestRepository requestRepository;
     private final EntityManager entityManager;
+    private final StatsService statsService;
 
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
@@ -74,9 +76,9 @@ public class EventServiceImpl implements EventService {
     public EventAllDto createEvent(final Long userId, final EventNewDto eventRequestDto) {
         final User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("Пользователя с id = {} не существует." + userId));
-        Long categoryId = eventRequestDto.getCategory();
-        final Category category = categoryRepository.findById(categoryId)
-                .orElseThrow(() -> new ValidationException("Категории с id = {} не существует." + categoryId));
+        Long catId = eventRequestDto.getCategory();
+        final Category category = categoryRepository.findById(catId)
+                .orElseThrow(() -> new ValidationException("Категории с id = {} не существует." + catId));
 
         Location location = eventRequestDto.getLocation();
         locationRepository.save(location);
@@ -435,36 +437,17 @@ public class EventServiceImpl implements EventService {
     @Override
     @Transactional(readOnly = true)
     public EventAllDto getEventByIdPublic(final Long eventId, final HttpServletRequest request) {
-
-
-        log.debug("==> Find the event: eventId {}", eventId);
-        Event model = eventRepository.findById(eventId).orElseThrow(() -> new NotFoundException("Event not found by id: " + eventId));
-        if (!model.getState().equals(StateEvent.PUBLISHED)) {
-            throw new NotFoundException("Event is not published");
+        final Event event = eventRepository.findByIdAndState(eventId, StateEvent.PUBLISHED)
+                .orElseThrow(() -> new NotFoundException("События с id = {} не существует." + eventId));
+        if (!event.getState().equals(StateEvent.PUBLISHED)) {
+            throw new NotFoundException("У события должен быть статус <ОПУБЛИКОВАННО>.");
         }
+        final Map<Long, Long> view = statsService.getView(new ArrayList<>(List.of(event.getId())), true);
+        final EventAllDto eventResponseLongDto = EventMapper.toEventAllDto(event);
+        eventResponseLongDto.setViews(Math.toIntExact(view.getOrDefault(event.getId(), 0L)));
 
-        EventAllDto result = EventMapper.toEventAllDto(model);
-        log.debug("<== Found the event: result {}", result);
-        return result;
-
-    }
-
-    private void checkValidFields(final EventDto eventDto, final Event oldEvent) {
-        Optional.ofNullable(eventDto.getTitle()).ifPresent(oldEvent::setTitle);
-        Optional.ofNullable(eventDto.getAnnotation()).ifPresent(oldEvent::setAnnotation);
-        Optional.ofNullable(eventDto.getDescription()).ifPresent(oldEvent::setDescription);
-        Optional.ofNullable(eventDto.getEventDate()).ifPresent(oldEvent::setEventDate);
-        Optional.ofNullable(eventDto.getLocation()).ifPresent(oldEvent::setLocation);
-        Optional.ofNullable(eventDto.getParticipantLimit()).ifPresent(oldEvent::setParticipantLimit);
-        Optional.ofNullable(eventDto.getPaid()).ifPresent(oldEvent::setPaid);
-        Optional.ofNullable(eventDto.getRequestModeration()).ifPresent(oldEvent::setRequestModeration);
-
-        if (Objects.nonNull(eventDto.getCategory())) {
-            Long catId = eventDto.getCategory();
-            final Category category = categoryRepository.findById(eventDto.getCategory())
-                    .orElseThrow(() -> new ValidationException("Категории с id = {} не существует." + catId));
-            oldEvent.setCategory(category);
-        }
+        statsService.createStats(request.getRequestURI(), request.getRemoteAddr());
+        return eventResponseLongDto;
     }
 
 }

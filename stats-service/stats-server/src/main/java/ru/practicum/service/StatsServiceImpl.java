@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.StatsDtoIn;
 import ru.practicum.StatsDtoOut;
+import ru.practicum.exception.ValidationException;
 import ru.practicum.mapper.StatsMapper;
 import ru.practicum.model.Stats;
 import ru.practicum.repository.StatsRepository;
@@ -30,16 +31,20 @@ public class StatsServiceImpl implements StatsService {
     @Transactional(readOnly = true)
     public List<StatsDtoOut> getStats(LocalDateTime start, LocalDateTime end, List<String> uris, Boolean unique) {
 
+        if (start.isAfter(end)) {
+            throw new ValidationException("Дата начала и дата окончания не могут быть равны или противоречить друг другу.");
+        }
+
         if (unique) {
             if (uris != null) {
-                return statsRepository.findAllWithIPAndURI(uris, start, end);
+                return statsRepository.findAllWithUniqueIpWithUris(uris, start, end);
             }
-            return statsRepository.findAllWithIPAndWithoutURI(start, end);
+            return statsRepository.findAllWithUniqueIpWithoutUris(start, end);
         } else {
             if (uris != null) {
-                return statsRepository.findAllWithURIs(uris, start, end);
+                return statsRepository.findAllWithUris(uris, start, end);
             }
-            return statsRepository.findAllWithoutURIs(start, end);
+            return statsRepository.findAllWithoutUris(start, end);
         }
     }
 }
