@@ -26,6 +26,7 @@ public class EventControllerPrivate {
     private final EventService eventService;
 
     @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     public List<EventSmallDto> getAllEvents(@PathVariable @Positive final Long userId,
                                             @RequestParam(defaultValue = "0") @PositiveOrZero final int from,
                                             @RequestParam(defaultValue = "10") @Positive final int size) {
@@ -39,22 +40,26 @@ public class EventControllerPrivate {
     }
 
     @GetMapping("/{eventId}")
+    @ResponseStatus(HttpStatus.OK)
     public EventAllDto getEventById(@PathVariable @Positive final Long userId, @PathVariable @Positive final Long eventId) {
         return eventService.getEventById(userId, eventId);
     }
 
     @PatchMapping("/{eventId}")
+    @ResponseStatus(HttpStatus.OK)
     public EventAllDto updateEvent(@PathVariable @Positive final Long userId, @PathVariable @Positive final Long eventId,
                                    @RequestBody @Valid final EventDto eventDto) {
         return eventService.updateEvent(userId, eventId, eventDto);
     }
 
     @GetMapping("/{eventId}/requests")
+    @ResponseStatus(HttpStatus.OK)
     public List<RequestDto> getRequestsByEventId(@PathVariable final Long userId, @PathVariable final Long eventId) {
         return eventService.getRequestsByEventId(userId, eventId);
     }
 
     @PatchMapping("/{eventId}/requests")
+    @ResponseStatus(HttpStatus.OK)
     public Map<String, List<RequestDto>> approveRequests(@PathVariable final Long userId,
                                                          @PathVariable final Long eventId,
                                                          @RequestBody @Valid final RequestStatusDto requestDto) {

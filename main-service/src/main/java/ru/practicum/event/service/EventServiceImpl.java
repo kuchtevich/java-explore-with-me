@@ -293,7 +293,7 @@ public class EventServiceImpl implements EventService {
                 return new ArrayList<>();
             }
         } else {
-            categories = categoryRepository.findByIdInOrderById(categoriesId, pageRequest);
+            categories = categoryRepository.findByIdInOrderByIdAsc(categoriesId, pageRequest);
             if (categories.size() != categoriesId.size()) {
                 throw new ValidationException("Список категорий передан неверно неверно");
             }

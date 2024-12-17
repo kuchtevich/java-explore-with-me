@@ -16,7 +16,7 @@ import java.util.HashMap;
 @Service
 @RequiredArgsConstructor
 public class StatsServiceImpl implements StatsService {
-    private static final String APP_NAME = "ewm-main-service";
+    private static final String APP_NAME = "main-service";
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     private final StatsClient statsClient;

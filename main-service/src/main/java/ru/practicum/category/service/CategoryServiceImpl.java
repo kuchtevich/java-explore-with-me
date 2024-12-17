@@ -43,9 +43,9 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryDtoOut updateCategory(final long categoryId, final CategoryDtoIn categoryDtoIn) {
-        final Category category = categoryRepository.findById(categoryId)
-                .orElseThrow(() -> new NotFoundException("Категории с id = {} не существует." + categoryId));
+    public CategoryDtoOut updateCategory(final long catId, final CategoryDtoIn categoryDtoIn) {
+        final Category category = categoryRepository.findById(catId)
+                .orElseThrow(() -> new NotFoundException("Категории с id = {} не существует." + catId));
 
         if (Objects.nonNull(categoryDtoIn.getName())) {
             category.setName(categoryDtoIn.getName());
@@ -58,26 +58,26 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void deleteCategory(final long categoryId) {
-        final Category category = categoryRepository.findById(categoryId)
-                .orElseThrow(() -> new NotFoundException("Категории с id = {} не существует." + categoryId));
+    public void deleteCategory(final long catId) {
+        final Category category = categoryRepository.findById(catId)
+                .orElseThrow(() -> new NotFoundException("Категории с id = {} не существует." + catId));
 
-        if (eventRepository.existsByCategoryId(categoryId)) {
-            log.warn("Категория с id {} не может быть удалена.", categoryId);
+        if (eventRepository.existsByCategoryId(catId)) {
+            log.warn("Категория с id {} не может быть удалена.", catId);
             throw new ConflictException("Нельзя удалить категорию, с которой связаны события.");
         }
 
-        categoryRepository.delete(category);
-        log.info("Категория с id  = {} удалена.", categoryId);
+        categoryRepository.deleteById(catId);
+        log.info("Категория с id  = {} удалена.", catId);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public CategoryDtoOut getCategoryById(final long categoryId) {
-        final Category category = categoryRepository.findById(categoryId)
-                .orElseThrow(() -> new NotFoundException("Категории с id = {} не существует." + categoryId));
+    public CategoryDtoOut getCategoryById(final long catId) {
+        final Category category = categoryRepository.findById(catId)
+                .orElseThrow(() -> new NotFoundException("Категории с id = {} не существует." + catId));
 
-        log.info("Получение категории по id {}.", categoryId);
+        log.info("Получение категории по id {}.", catId);
         return CategoryMapper.toCategoryDtoOut(category);
     }
 

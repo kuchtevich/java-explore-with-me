@@ -7,5 +7,5 @@ import org.springframework.data.domain.PageRequest;
 import java.util.List;
 
 public interface CategoryRepository extends JpaRepository<Category, Long> {
-    List<Category> findByIdInOrderById(List<Long> ids, PageRequest pageRequest);
+    List<Category> findByIdInOrderByIdAsc(List<Long> ids, PageRequest pageRequest);
 }

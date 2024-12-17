@@ -24,14 +24,14 @@ public class CategoryController {
         return categoryService.createCategory(categoryDtoIn);
     }
 
-    @PatchMapping("/{categoryId}")
-    public CategoryDtoOut updateCategory(@PathVariable @Positive final long categoryId, @Valid @RequestBody final CategoryDtoIn categoryDtoIn) {
-        return categoryService.updateCategory(categoryId, categoryDtoIn);
+    @PatchMapping("/{catId}")
+    public CategoryDtoOut updateCategory(@PathVariable @Positive final long catId, @Valid @RequestBody final CategoryDtoIn categoryDtoIn) {
+        return categoryService.updateCategory(catId, categoryDtoIn);
     }
 
-    @DeleteMapping("/{categoryId}")
+    @DeleteMapping("/{catId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteCategory(@PathVariable final long categoryId) {
-        categoryService.deleteCategory(categoryId);
+    public void deleteCategory(@PathVariable final long catId) {
+        categoryService.deleteCategory(catId);
     }
 }

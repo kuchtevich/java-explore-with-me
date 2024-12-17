@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.event.dto.EventAllDto;
@@ -36,6 +37,7 @@ public class EventControllerForAll {
     }
 
     @GetMapping("/{eventId}")
+    @ResponseStatus(HttpStatus.OK)
     public EventAllDto getEventByIdPublic(@PathVariable final Long eventId, final HttpServletRequest request) {
         return eventService.getEventByIdPublic(eventId, request);
     }

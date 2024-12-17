@@ -18,6 +18,7 @@ public class RequestController {
     private final RequestService requestService;
 
     @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     public List<RequestDto> getAllRequests(@PathVariable @Positive final Long userId) {
         return requestService.getAllRequests(userId);
     }
@@ -30,7 +31,7 @@ public class RequestController {
 
     @PatchMapping("/{requestId}/cancel")
     public RequestDto cancelRequest(@PathVariable @Positive final Long userId,
-                                                              @PathVariable @Positive final Long requestId) {
+                                    @PathVariable @Positive final Long requestId) {
         return requestService.cancelRequest(userId, requestId);
     }
 }
