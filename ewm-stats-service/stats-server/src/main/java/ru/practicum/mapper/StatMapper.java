@@ -1,13 +1,13 @@
 package ru.practicum.mapper;
 
 import ru.practicum.StatsDtoIn;
-import ru.practicum.model.Stats;
+import ru.practicum.model.Stat;
 
-public class StatsMapper {
+public class StatMapper {
 
-    public static Stats toStats(StatsDtoIn statsDtoIn) {
+    public static Stat toStats(StatsDtoIn statsDtoIn) {
 
-        final Stats stats = new Stats();
+        final Stat stats = new Stat();
 
         stats.setIp(statsDtoIn.getIp());
         stats.setUri(statsDtoIn.getUri());
@@ -17,7 +17,7 @@ public class StatsMapper {
         return stats;
     }
 
-    public static StatsDtoIn toStatsDto(Stats stats) {
+    public static StatsDtoIn toStatsDto(Stat stats) {
 
         final StatsDtoIn statsDtoIn = new StatsDtoIn();
 

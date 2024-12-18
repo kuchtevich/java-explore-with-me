@@ -16,15 +16,15 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @Validated
-public class StatsController {
-    private final StatService statsService;
+public class StatController {
+    private final StatService statService;
 
     private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
     @PostMapping("/hit")
     @ResponseStatus(HttpStatus.CREATED)
     public StatsDtoIn createStats(@RequestBody @Valid StatsDtoIn statsDtoIn) {
-        return statsService.createStats(statsDtoIn);
+        return statService.createStats(statsDtoIn);
 
     }
 
@@ -35,7 +35,7 @@ public class StatsController {
             @RequestParam @DateTimeFormat(pattern = DATE_FORMAT) LocalDateTime end,
             @RequestParam(required = false) List<String> uris,
             @RequestParam(defaultValue = "false") Boolean unique) {
-        return statsService.getStats(start, end, uris, unique);
+        return statService.getStats(start, end, uris, unique);
     }
 
 }

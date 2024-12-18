@@ -7,9 +7,10 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.StatsDtoIn;
 import ru.practicum.StatsDtoOut;
 import ru.practicum.exception.ValidationException;
-import ru.practicum.mapper.StatsMapper;
-import ru.practicum.model.Stats;
+import ru.practicum.mapper.StatMapper;
+import ru.practicum.model.Stat;
 import ru.practicum.repository.StatRepository;
+
 import java.util.List;
 import java.time.LocalDateTime;
 
@@ -22,9 +23,9 @@ public class StatServiceImpl implements StatService {
 
     @Override
     public StatsDtoIn createStats(StatsDtoIn statDtoIn) {
-        final Stats stats = statRepository.save(StatsMapper.toStats(statDtoIn));
+        final Stat stats = statRepository.save(StatMapper.toStats(statDtoIn));
         log.info("Элемент статистики добавлен в БД {}.", stats);
-        return StatsMapper.toStatsDto(stats);
+        return StatMapper.toStatsDto(stats);
     }
 
     @Override
