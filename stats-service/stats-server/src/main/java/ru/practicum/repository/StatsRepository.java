@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import ru.practicum.StatsDtoOut;
 import ru.practicum.model.Stats;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -27,7 +28,7 @@ public interface StatsRepository extends JpaRepository<Stats, Long> {
             ORDER BY COUNT(DISTINCT s.ip) DESC
             """)
     List<StatsDtoOut> findAllWithIPAndWithoutURI(LocalDateTime start,
-                                                     LocalDateTime end);
+                                                 LocalDateTime end);
 
     @Query("""
             SELECT new ru.practicum.StatsDtoOut(s.ip, s.uri, COUNT(s.ip))
@@ -37,8 +38,8 @@ public interface StatsRepository extends JpaRepository<Stats, Long> {
             ORDER BY COUNT (s.ip) DESC
             """)
     List<StatsDtoOut> findAllWithURIs(List<String> uris,
-                                        LocalDateTime start,
-                                        LocalDateTime end);
+                                      LocalDateTime start,
+                                      LocalDateTime end);
 
     @Query("""
             SELECT new ru.practicum.StatsDtoOut(s.ip, s.uri, COUNT(s.ip))
@@ -48,5 +49,5 @@ public interface StatsRepository extends JpaRepository<Stats, Long> {
             ORDER BY COUNT (s.ip) DESC
             """)
     List<StatsDtoOut> findAllWithoutURIs(LocalDateTime start,
-                                           LocalDateTime end);
+                                         LocalDateTime end);
 }
