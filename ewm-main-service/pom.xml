@@ -9,7 +9,6 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>org.example</groupId>
     <artifactId>ewm-main-service</artifactId>
 
     <properties>
@@ -24,8 +23,8 @@
         </dependency>
         <dependency>
             <groupId>ru.practicum</groupId>
-            <artifactId>stats-client</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <artifactId>stats-dto</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -125,4 +124,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>

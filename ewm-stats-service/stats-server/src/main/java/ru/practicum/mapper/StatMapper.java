@@ -7,24 +7,24 @@ public class StatMapper {
 
     public static Stat toStats(StatsDtoIn statsDtoIn) {
 
-        final Stat stats = new Stat();
+        final Stat stat = new Stat();
 
-        stats.setIp(statsDtoIn.getIp());
-        stats.setUri(statsDtoIn.getUri());
-        stats.setTimestamp(statsDtoIn.getTimestamp());
-        stats.setApp(statsDtoIn.getApp());
+        stat.setIp(statsDtoIn.getIp());
+        stat.setUri(statsDtoIn.getUri());
+        stat.setTimestamp(statsDtoIn.getTimestamp());
+        stat.setApp(statsDtoIn.getApp());
 
-        return stats;
+        return stat;
     }
 
-    public static StatsDtoIn toStatsDto(Stat stats) {
+    public static StatsDtoIn toStatsDto(Stat stat) {
 
         final StatsDtoIn statsDtoIn = new StatsDtoIn();
 
-        statsDtoIn.setIp(stats.getIp());
-        statsDtoIn.setUri(stats.getUri());
-        statsDtoIn.setTimestamp(stats.getTimestamp());
-        statsDtoIn.setApp(stats.getApp());
+        statsDtoIn.setIp(stat.getIp());
+        statsDtoIn.setUri(stat.getUri());
+        statsDtoIn.setTimestamp(stat.getTimestamp());
+        statsDtoIn.setApp(stat.getApp());
 
         return statsDtoIn;
     }

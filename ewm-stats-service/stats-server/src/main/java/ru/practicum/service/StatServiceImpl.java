@@ -18,14 +18,16 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 @Slf4j
 @Transactional
-public class StatServiceImpl implements StatService {
+public class StatServiceImpl implements
+
+        StatService {
     private final StatRepository statRepository;
 
     @Override
     public StatsDtoIn createStats(StatsDtoIn statDtoIn) {
-        final Stat stats = statRepository.save(StatMapper.toStats(statDtoIn));
-        log.info("Элемент статистики добавлен в БД {}.", stats);
-        return StatMapper.toStatsDto(stats);
+        final Stat stat = statRepository.save(StatMapper.toStats(statDtoIn));
+        log.info("Элемент статистики добавлен в БД {}.", stat);
+        return StatMapper.toStatsDto(stat);
     }
 
     @Override
