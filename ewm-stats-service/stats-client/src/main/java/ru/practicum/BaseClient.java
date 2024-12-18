@@ -6,9 +6,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
+
 import java.util.Map;
 
 public class BaseClient {
+
     protected final RestTemplate restTemplate;
 
     public BaseClient(final RestTemplate restTemplate) {

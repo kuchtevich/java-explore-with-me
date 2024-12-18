@@ -7,10 +7,10 @@ import ru.practicum.model.Stats;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public interface StatsRepository extends JpaRepository<Stats, Long> {
+public interface StatRepository extends JpaRepository<Stats, Long> {
     @Query("""
-            SELECT new ru.practicum.StatsDtoOut(s.ip, s.uri, COUNT(DISTINCT s.ip))
-            FROM Stats AS s
+            SELECT new ru.practicum.StatDtoOutput(s.ip, s.uri, COUNT(DISTINCT s.ip))
+            FROM Stat AS s
             WHERE s.timestamp BETWEEN :start AND :end AND s.uri IN :uris
             GROUP BY s.ip, s.uri
             ORDER BY COUNT(DISTINCT s.ip) DESC
@@ -20,8 +20,8 @@ public interface StatsRepository extends JpaRepository<Stats, Long> {
                                           LocalDateTime end);
 
     @Query("""
-            SELECT new ru.practicum.StatsDtoOut(s.ip, s.uri, COUNT(DISTINCT s.ip))
-            FROM Stats AS s
+            SELECT new ru.practicum.StatDtoOutput(s.ip, s.uri, COUNT(DISTINCT s.ip))
+            FROM Stat AS s
             WHERE s.timestamp BETWEEN :start AND :end
             GROUP BY s.ip, s.uri
             ORDER BY COUNT(DISTINCT s.ip) DESC
@@ -30,8 +30,8 @@ public interface StatsRepository extends JpaRepository<Stats, Long> {
                                                      LocalDateTime end);
 
     @Query("""
-            SELECT new ru.practicum.StatsDtoOut(s.ip, s.uri, COUNT(s.ip))
-            FROM Stats AS s
+            SELECT new ru.practicum.StatDtoOutput(s.ip, s.uri, COUNT(s.ip))
+            FROM Stat AS s
             WHERE s.timestamp BETWEEN :start AND :end AND s.uri IN :uris
             GROUP BY s.ip, s.uri
             ORDER BY COUNT (s.ip) DESC
@@ -41,8 +41,8 @@ public interface StatsRepository extends JpaRepository<Stats, Long> {
                                         LocalDateTime end);
 
     @Query("""
-            SELECT new ru.practicum.StatsDtoOut(s.ip, s.uri, COUNT(s.ip))
-            FROM Stats AS s
+            SELECT new ru.practicum.StatDtoOutput(s.ip, s.uri, COUNT(s.ip))
+            FROM Stat AS s
             WHERE s.timestamp BETWEEN :start AND :end
             GROUP BY s.ip, s.uri
             ORDER BY COUNT (s.ip) DESC

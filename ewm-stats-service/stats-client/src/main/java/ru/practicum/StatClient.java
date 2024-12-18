@@ -14,14 +14,12 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.time.LocalDateTime;
-import ru.practicum.exception.ValidationException;
 
 @Service
-public class StatsClient extends BaseClient {
+public class StatClient extends BaseClient {
 
     @Autowired
-    public StatsClient(@Value("${stats-service.url}") final String serverUrl,
+    public StatClient(@Value("${stats-service.url}") final String serverUrl,
                       final RestTemplateBuilder builder) {
         super(
                 builder
@@ -31,7 +29,7 @@ public class StatsClient extends BaseClient {
         );
     }
 
-    public ResponseEntity<Object> createStats(final StatsDtoIn statsDtoIn) {
+    public ResponseEntity<Object> createStat(final StatsDtoIn statsDtoIn) {
         return post("/hit", statsDtoIn);
     }
 
@@ -39,13 +37,6 @@ public class StatsClient extends BaseClient {
                                            final String end,
                                            @Nullable final List<String> uris,
                                            final boolean unique) {
-
-        LocalDateTime startLocal = LocalDateTime.parse(start);
-        LocalDateTime endLocal = LocalDateTime.parse(end);
-
-        if (startLocal.isAfter(endLocal)) {
-            throw new ValidationException("Дата начала и дата окончания указаны неверно.");
-        }
         Map<String, Object> parameters;
 
         if (Objects.isNull(uris)) {

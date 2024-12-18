@@ -9,7 +9,7 @@ import ru.practicum.StatsDtoOut;
 import ru.practicum.exception.ValidationException;
 import ru.practicum.mapper.StatsMapper;
 import ru.practicum.model.Stats;
-import ru.practicum.repository.StatsRepository;
+import ru.practicum.repository.StatRepository;
 import java.util.List;
 import java.time.LocalDateTime;
 
@@ -17,12 +17,12 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 @Slf4j
 @Transactional
-public class StatsServiceImpl implements StatsService {
-    private final StatsRepository statsRepository;
+public class StatServiceImpl implements StatService {
+    private final StatRepository statRepository;
 
     @Override
     public StatsDtoIn createStats(StatsDtoIn statDtoIn) {
-        final Stats stats = statsRepository.save(StatsMapper.toStats(statDtoIn));
+        final Stats stats = statRepository.save(StatsMapper.toStats(statDtoIn));
         log.info("Элемент статистики добавлен в БД {}.", stats);
         return StatsMapper.toStatsDto(stats);
     }
@@ -37,14 +37,14 @@ public class StatsServiceImpl implements StatsService {
 
         if (unique) {
             if (uris != null) {
-                return statsRepository.findAllWithUniqueIpWithUris(uris, start, end);
+                return statRepository.findAllWithUniqueIpWithUris(uris, start, end);
             }
-            return statsRepository.findAllWithUniqueIpWithoutUris(start, end);
+            return statRepository.findAllWithUniqueIpWithoutUris(start, end);
         } else {
             if (uris != null) {
-                return statsRepository.findAllWithUris(uris, start, end);
+                return statRepository.findAllWithUris(uris, start, end);
             }
-            return statsRepository.findAllWithoutUris(start, end);
+            return statRepository.findAllWithoutUris(start, end);
         }
     }
 }

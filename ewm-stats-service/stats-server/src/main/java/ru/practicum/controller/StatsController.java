@@ -8,7 +8,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.StatsDtoIn;
 import ru.practicum.StatsDtoOut;
-import ru.practicum.service.StatsService;
+import ru.practicum.service.StatService;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -17,7 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Validated
 public class StatsController {
-    private final StatsService statsService;
+    private final StatService statsService;
 
     private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
