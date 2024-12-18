@@ -1,6 +1,6 @@
 services:
   stats-server:
-    build: stats-service/stats-server
+    build: ewm-stats-service/stats-server
     image: stats-server-image
     container_name: stats-server
     ports:
@@ -24,9 +24,9 @@ services:
       - POSTGRES_PASSWORD=12345
 
 
-  main-service:
-    build: main-service
-    image: main-service-image
+  ewm-main-service:
+    build: ewm-main-service
+    image: ewm-main-service-image
     container_name: ewm-main
     ports:
       - "8080:8080"
