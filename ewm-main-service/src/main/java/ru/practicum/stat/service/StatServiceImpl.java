@@ -5,7 +5,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.practicum.StatsDtoIn;
 import ru.practicum.StatsDtoOut;
-import ru.practicum.stats.client.StatsClient;
+import ru.practicum.stat.client.StatsClient;
+import ru.practicum.stat.service.StatsService;
+
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;

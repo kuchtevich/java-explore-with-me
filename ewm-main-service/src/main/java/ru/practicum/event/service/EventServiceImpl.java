@@ -29,7 +29,7 @@ import ru.practicum.request.dto.RequestStatusDto;
 import ru.practicum.request.mapper.RequestMapper;
 import ru.practicum.request.model.RequestStatus;
 import ru.practicum.request.repository.RequestRepository;
-import ru.practicum.stats.service.StatsService;
+import ru.practicum.stat.service.StatsService;
 import ru.practicum.user.model.User;
 import ru.practicum.user.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;

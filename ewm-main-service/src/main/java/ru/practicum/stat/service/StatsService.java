@@ -1,4 +1,4 @@
-package ru.practicum.stats.service;
+package ru.practicum.stat.service;
 
 import ru.practicum.StatsDtoOut;
 import java.util.List;
