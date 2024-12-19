@@ -9,3 +9,4 @@ public class StatsServerApp {
         SpringApplication.run(StatsServerApp.class, args);
     }
 }
+//
