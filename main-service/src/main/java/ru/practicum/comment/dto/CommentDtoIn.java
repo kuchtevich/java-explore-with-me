@@ -8,4 +8,3 @@ public class CommentDtoIn {
     @NotBlank
     private String text;
 }
-//
